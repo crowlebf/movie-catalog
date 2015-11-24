@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Movies</title>
+</head>
+<body>
+
+<h1>
+	<ul>
+			<%@movies_array.each do |movie|%>
+				<li>
+					<a href=/movies/<%=movie["id"]%>><%=movie["name"]%>
+					</a>
+				</li>
+			<%end%>
+	</ul>
+</h1>
+</body>
+</html>

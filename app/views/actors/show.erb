@@ -5,10 +5,15 @@
 </head>
 <body>
 
-	<ul>
-			<li>
-				<%@name%>
-			</li>
+	<ul>	
+			<%@actor.each do |hashes|%>
+					<li>
+					<a href=/movies/<%=hashes["title"].gsub(/\s+/, "")%>><%=hashes["title"]%>
+					</a>
+					</li>
+					<li><%=hashes["character"]%></li>
+					<br/>
+			<%end%>
 	</ul>
 
 </body>

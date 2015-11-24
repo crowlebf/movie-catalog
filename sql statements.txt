@@ -1,0 +1,5 @@
+SELECT actors.name, movies.title, cast_members.character 
+FROM actors 
+JOIN cast_members ON actors.id = cast_members.actor_id 
+JOIN movies ON movies.id = cast_members.movie_id
+WHERE actors.name = 'Jennifer Lawrence';

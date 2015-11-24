@@ -22,18 +22,48 @@ def db_connection
   end
 end
 
+get '/' do
+	redirect '/actors'
+end
+
 get '/actors' do
-	# @actors_array = []
-	# db_connection do |conn|
-	#   name = conn.exec("SELECT name, id FROM actors AS actor_list;")
-	#   # binding.pry
-	#   name.each do |actors_name|
-	#   	# binding.pry
-	#   	@actors_array << actors_name	  	
-	#   	erb :'actors/index'
-	#   end
-	# end
+	sql = "SELECT name, id FROM actors AS actor_list;"
+	@actors_array = []
+	
+	db_connection do |conn|
+	  actor = conn.exec(sql)
+	  actor.each do |actors_name|
+	  	@actors_array << actors_name
+	  end
+	  erb :'actors/index'
+	end
 end
 
 get '/actors/:id' do
+	sql = "
+	SELECT actors.name, movies.title, cast_members.character, actors.id 
+	FROM actors 
+	JOIN cast_members ON actors.id = cast_members.actor_id 
+	JOIN movies ON movies.id = cast_members.movie_id 
+	WHERE actors.id = #{params["id"]} 
+	ORDER BY name;"
+
+	db_connection do |conn|
+  	@actor = conn.exec(sql)
+  end
+	erb :'actors/show'
+end
+
+get '/movies' do 
+	sql = "SELECT title FROM movies AS movie_list;"
+	@movie_array = []
+	
+	db_connection do |conn|
+	  movie = conn.exec(sql)
+	  movie.each do |movie_name|
+	  	binding.pry
+	  	@movie_array << movie_name
+	  end
+	  erb :'movies/index'
+	end
 end
