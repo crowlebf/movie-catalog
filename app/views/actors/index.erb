@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Actors</title>
+</head>
+<body>
+
+<h1>
+	<ul>
+			<%@actors_array.each do |actor|%>
+				<li>
+					<a href=/actors/<%=actor["id"]%>><%=actor["name"]%>
+					</a>
+				</li>
+			<%end%>
+	</ul>
+</h1>
+</body>
+</html>
